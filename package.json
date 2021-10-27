@@ -11,9 +11,10 @@
     "lint": "eslint .",
     "build:mta": "mbt build",
     "deploy:cf": "cross-var cf deploy mta_archives/myorders_$npm_package_version.mtar",
-    "deploy": "run-s build:mta deploy:cf",
+    "deploy": "run-s cftarget:dev build:mta deploy:cf",
     "serve:uimodule": "ui5 serve --config=uimodule/ui5.yaml",
-    "build:uimodule": "ui5 build --config=uimodule/ui5.yaml --clean-dest --dest uimodule/dist --include-task=generateManifestBundle"
+    "build:uimodule": "ui5 build --config=uimodule/ui5.yaml --clean-dest --dest uimodule/dist --include-task=generateManifestBundle",
+    "cftarget:dev": "cf target -o \"flexso-atlas-copco-poc\" -s \"portal\""
   },
   "devDependencies": {
     "shx": "^0.3.3",

@@ -1,6 +1,11 @@
 {
-  "welcomeFile": "/flpSandbox.html",
+  "welcomeFile": "/index.html",
   "routes": [
+    {
+      "source": "^/V2/(.*)$",
+      "target": "$1",
+      "destination": "northwind"
+    },
     {
       "source": "^(.*)",
       "target": "$1",

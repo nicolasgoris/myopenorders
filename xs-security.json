@@ -1,5 +1,5 @@
 {
-  "xsappname": "myorders",
+  "xsappname": "mac-mw",
   "tenant-mode": "dedicated",
   "description": "Security profile of called application",
   "scopes": [

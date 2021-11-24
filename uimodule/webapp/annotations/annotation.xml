@@ -1,41 +1,234 @@
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
     <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
         <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/V2/Northwind/Northwind.svc/$metadata">
-        <edmx:Include Namespace="NorthwindModel"/>
-        <edmx:Include Namespace="ODataWeb.Northwind.Model"/>
+    <edmx:Reference Uri="/order/$metadata">
+        <edmx:Include Namespace="Order"/>
     </edmx:Reference>
     <edmx:DataServices>
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.ac">
-            <Annotations Target="NorthwindModel.Order">
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+            <Annotations Target="Order.Order">
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>SalesOrg</PropertyPath>
+                        <PropertyPath>SoldTo</PropertyPath>
+                        <PropertyPath>ShipToCountry</PropertyPath>
+                        <PropertyPath>ShipToCity</PropertyPath>
+                    </Collection>
+                </Annotation>
                 <Annotation Term="UI.LineItem">
                     <Collection>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="OrderID"/>
+                            <PropertyValue Property="Value" Path="OrderNr"/>
+                            <PropertyValue Property="Label" String="{@i18n>ordernr}"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CustomerReference"/>
+                            <PropertyValue Property="Label" String="{@i18n>customerreference}"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="SoldTo"/>
+                            <PropertyValue Property="Label" String="{@i18n>soldTo}"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ShipToCountry"/>
+                            <PropertyValue Property="Label" String="{@i18n>shipToCountry}"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ShipToCity"/>
+                            <PropertyValue Property="Label" String="{@i18n>shipToCity}"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="OrderDate"/>
+                            <PropertyValue Property="Label" String="{@i18n>orderDate}"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="ShipCity"/>
+                            <PropertyValue Property="Value" Path="TotalAmount"/>
+                            <PropertyValue Property="Label" String="{@i18n>totalAmount}"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="ShipCountry"/>
-                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="ShippedDate"/>
+                            <PropertyValue Property="Value" Path="Status"/>
+                            <PropertyValue Property="Label" String="{@i18n>status}"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
                         </Record>
                     </Collection>
                 </Annotation>
-                <Annotation Term="UI.SelectionFields">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record>
+                        <PropertyValue Property="TypeName" String=""/>
+                        <PropertyValue Property="TypeNamePlural" String=""/>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="ShipToCountry"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="OrderNr"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
                     <Collection>
-                        <PropertyPath>ShipCountry</PropertyPath>
+                        </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="Details">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Details/DeliveryInformation_OrderNr"/>
+                                    <PropertyValue Property="Label" String="DeliveryInformation_OrderNr"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Details/SalesInformation_OrderNr"/>
+                                    <PropertyValue Property="Label" String="SalesInformation_OrderNr"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Details/PaymentInformation_OrderNr"/>
+                                    <PropertyValue Property="Label" String="PaymentInformation_OrderNr"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Details/Invoices_OrderNr"/>
+                                    <PropertyValue Property="Label" String="Invoices_OrderNr"/>
+                                </Record></Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="i18ndetails">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="OrderNr"/>
+                                    <PropertyValue Property="Label" String="{@i18n>ordernr1}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="OrderDate"/>
+                                    <PropertyValue Property="Label" String="{@i18n>orderdate}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="WebOrder"/>
+                                    <PropertyValue Property="Label" String="{@i18n>weborder}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Status"/>
+                                    <PropertyValue Property="Label" String="{@i18n>status}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="ExpectedDeliveryDate"/>
+                                    <PropertyValue Property="Label" String="{@i18n>expecteddeliverydate}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="SalesOrg"/>
+                                    <PropertyValue Property="Label" String="{@i18n>salesorg}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="CustomerReference"/>
+                                    <PropertyValue Property="Label" String="{@i18n>customerreference1}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="SoldTo"/>
+                                    <PropertyValue Property="Label" String="{@i18n>soldto}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="ShipToCountry"/>
+                                    <PropertyValue Property="Label" String="{@i18n>shiptocountry}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="ShipToCity"/>
+                                    <PropertyValue Property="Label" String="{@i18n>shiptocity}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="TotalAmount"/>
+                                    <PropertyValue Property="Label" String="{@i18n>totalamount}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="TotalCurrency"/>
+                                    <PropertyValue Property="Label" String="{@i18n>totalcurrency}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="CreatedBy"/>
+                                    <PropertyValue Property="Label" String="{@i18n>createdby}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="LastModified"/>
+                                    <PropertyValue Property="Label" String="{@i18n>lastmodified}"/>
+                                </Record></Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="Order.Order/SalesOrg">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="Customer"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="SalesOrg"/>
+                                    <PropertyValue Property="ValueListProperty" String="salesOrg"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+                <Annotation Term="Common.Label" String="{@i18n>salesOrg}"/>
+            </Annotations>
+            <Annotations Target="Order.Order/SoldTo">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="Customer"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="SoldTo"/>
+                                    <PropertyValue Property="ValueListProperty" String="id"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+                <Annotation Term="Common.Label" String="{@i18n>soldTo}"/>
+            </Annotations>
+            <Annotations Target="Order.Order/ShipToCountry">
+                <Annotation Term="Common.Label" String="{i18n>shipToCountry}"/>
+            </Annotations>
+            <Annotations Target="Order.Order/ShipToCity">
+                <Annotation Term="Common.Label" String="{i18n>shipToCity}"/>
+            </Annotations>
+            <Annotations Target="Order.LineItem">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="MaterialNr"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="MaterialDescription"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ListPrice"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Currency"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
                     </Collection>
                 </Annotation>
             </Annotations>

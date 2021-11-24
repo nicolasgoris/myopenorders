@@ -1,16 +1,19 @@
 {
-  "welcomeFile": "/index.html",
-  "routes": [
-    {
-      "source": "^/V2/(.*)$",
-      "target": "$1",
-      "destination": "northwind"
-    },
-    {
-      "source": "^(.*)",
-      "target": "$1",
-      "authenticationType": "xsuaa",
-      "service": "html5-apps-repo-rt"
-    }
-  ]
-}
+    "welcomeFile": "/index.html",
+    "authenticationMethod": "route",
+    "routes": [
+      {
+        "source": "^/srv_api/(.*)$",
+        "authenticationType": "xsuaa",
+        "csrfProtection": false,
+        "destination": "MAC_MW",
+        "target": "$1"
+      },
+      {
+        "source": "^(.*)$",
+        "target": "$1",
+        "service": "html5-apps-repo-rt",
+        "authenticationType": "xsuaa"
+      }
+    ]
+  }

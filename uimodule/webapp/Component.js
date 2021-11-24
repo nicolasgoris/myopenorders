@@ -1,5 +1,7 @@
-sap.ui.define(["sap/suite/ui/generic/template/lib/AppComponent"], function(AppComponent) {
-    return AppComponent.extend("com.flexso.portal.myorders.Component", {
+sap.ui.define(["sap/fe/core/AppComponent"], function(AppComponent) {
+    "use strict";
+
+    return AppComponent.extend("myorders.Component", {
         metadata: {
             manifest: "json"
         }

@@ -23,7 +23,7 @@ modules:
     build-parameters:
       no-source: true
     requires:
-      - name: myorders_uaa
+      - name: mac-mw-uaa
         parameters:
           service-key:
             name: myorders_uaa-key
@@ -31,7 +31,7 @@ modules:
         parameters:
           service-key:
             name: myorders_html5_repo_host-key
-      - name: myorders_destination
+      - name: mac-mw-destination
         parameters:
           content-target: true
     parameters:
@@ -45,7 +45,7 @@ modules:
               sap.cloud.service: myorders.service
             - Name: myorders_uaa
               Authentication: OAuth2UserTokenExchange
-              ServiceInstanceName: myorders_uaa
+              ServiceInstanceName: mac-mw-uaa
               ServiceKeyName: myorders_uaa-key
               sap.cloud.service: myorders.service
   - name: uimodule
@@ -57,7 +57,7 @@ modules:
         - npm run build:uimodule --prefix ..
       supported-platforms: []
 resources:
-  - name: myorders_destination
+  - name: mac-mw-destination
     type: org.cloudfoundry.managed-service
     parameters:
       service-plan: lite
@@ -72,7 +72,7 @@ resources:
       service: html5-apps-repo
       config:
         sizeLimit: 2
-  - name: myorders_uaa
+  - name: mac-mw-uaa
     type: org.cloudfoundry.managed-service
     parameters:
       path: ./xs-security.json

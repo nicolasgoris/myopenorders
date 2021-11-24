@@ -1,0 +1,18 @@
+{
+    "welcomeFile": "index.html",
+    "authenticationMethod": "route",
+    "routes": [
+      {
+        "source": "^/srv_api/(.*)$",
+        "target": "$1",
+        "authenticationType": "xsuaa",
+        "destination": "srv_api",
+        "csrfProtection": false
+      },
+      {
+        "source": "(.*)",
+        "target": "$1",
+        "localDir": "../uimodule/webapp"
+      }
+    ]
+  }

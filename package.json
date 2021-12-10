@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "start": "ui5 serve --config=uimodule/ui5.yaml  --open index.html",
+    "start:local": "cd localapprouter && npm run start",
     "build:ui": "run-s  build:uimodule",
     "test": "run-s lint karma",
     "karma-ci": "karma start karma-ci.conf.js",
@@ -11,10 +12,12 @@
     "lint": "eslint .",
     "build:mta": "mbt build",
     "deploy:cf": "cross-var cf deploy mta_archives/myorders_$npm_package_version.mtar",
-    "deploy": "run-s cftarget:dev build:mta deploy:cf",
     "serve:uimodule": "ui5 serve --config=uimodule/ui5.yaml",
     "build:uimodule": "ui5 build --config=uimodule/ui5.yaml --clean-dest --dest uimodule/dist --include-task=generateManifestBundle",
-    "cftarget:dev": "cf target -o \"AtasCopco_PT_MyAtlasCopco_DEV\" -s \"apps\""
+    "cftarget:dev": "cf target -o AtasCopco_PT_MyAtlasCopco_DEV -s apps",
+    "cftarget:stg": "cf target -o AtasCopco_PT_MyAtlasCopco_STG -s apps",
+    "deploy:dev": "run-s cftarget:dev build:mta deploy:cf",
+    "deploy:stg": "run-s cftarget:stg build:mta deploy:cf"
   },
   "devDependencies": {
     "@sap/ux-ui5-tooling": "^1.4.0",

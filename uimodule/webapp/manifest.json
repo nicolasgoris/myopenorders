@@ -1,7 +1,7 @@
 {
   "_version": "1.32.0",
   "sap.app": {
-    "id": "myorders",
+    "id": "com.atlascopco.pt.portal.myopenorders",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -9,20 +9,6 @@
     },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
-    "crossNavigation": {
-      "inbounds": {
-        "intent": {
-          "signature": {
-            "parameters": {},
-            "additionalParameters": "allowed"
-          },
-          "semanticObject": "orders",
-          "action": "display",
-          "title": "My orders",
-          "icon": "sap-icon://customer-order-entry"
-        }
-      }
-    },
     "dataSources": {
       "mainService": {
         "uri": "srv_api/order/",
@@ -46,6 +32,21 @@
     "sourceTemplate": {
       "id": "ui5template.fiorielements.v4.lrop",
       "version": "1.0.0"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "intent": {
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          },
+          "semanticObject": "myopenorders",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "subTitle": "{{flpSubtitle}}",
+          "icon": "sap-icon://customer-order-entry"
+        }
+      }
     }
   },
   "sap.ui": {
@@ -70,11 +71,10 @@
       "css": []
     },
     "dependencies": {
-      "minUI5Version": "1.96.0",
+      "minUI5Version": "1.97.0",
       "libs": {
         "sap.ui.core": {},
-        "sap.fe.templates": {},
-        "sap.f": {}
+        "sap.fe.templates": {}
       }
     },
     "models": {
@@ -102,12 +102,12 @@
         {
           "pattern": ":?query:",
           "name": "OrderList",
-          "target": ["OrderList"]
+          "target": "OrderList"
         },
         {
           "pattern": "Order({key}):?query:",
           "name": "OrderObjectPage",
-          "target": ["OrderList", "OrderObjectPage"]
+          "target": "OrderObjectPage"
         }
       ],
       "targets": {
@@ -125,22 +125,9 @@
                     "route": "OrderObjectPage"
                   }
                 }
-              },
-              "controlConfiguration": {
-                "@com.sap.vocabularies.UI.v1.LineItem": {
-                  "tableSettings": {
-                    "type": "ResponsiveTable",
-                    "selectionLimit": null,
-                    "personalization": {
-                      "column": false
-                    }
-                  }
-                }
               }
             }
-          },
-          "controlAggregation": "beginColumnPages",
-          "contextPattern": ""
+          }
         },
         "OrderObjectPage": {
           "type": "Component",
@@ -148,31 +135,16 @@
           "name": "sap.fe.templates.ObjectPage",
           "options": {
             "settings": {
-              "entitySet": "Order",
-              "sectionLayout": "Page"
+              "editableHeaderContent": false,
+              "entitySet": "Order"
             }
-          },
-          "controlAggregation": "midColumnPages",
-          "contextPattern": "/Order({key})"
+          }
         }
-      },
-      "config": {
-        "flexibleColumnLayout": {
-          "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
-          "defaultThreeColumnLayoutType": "ThreeColumnsEndExpanded"
-        },
-        "routerClass": "sap.f.routing.Router"
       }
     },
     "contentDensities": {
       "compact": true,
       "cozy": true
-    },
-    "rootView": {
-      "viewName": "sap.fe.templates.RootContainer.view.Fcl",
-      "type": "XML",
-      "async": true,
-      "id": "appRootView"
     }
   },
   "sap.platform.abap": {

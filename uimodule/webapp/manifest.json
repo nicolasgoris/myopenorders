@@ -37,7 +37,15 @@
       "inbounds": {
         "intent": {
           "signature": {
-            "parameters": {},
+            "parameters": {
+              "SoldTo": {
+                "required": "false",
+                "defaultValue": {
+                  "value": "|organization|",
+                  "format": "plain"
+                }
+              }
+            },
             "additionalParameters": "allowed"
           },
           "semanticObject": "myopenorders",
@@ -74,7 +82,8 @@
       "minUI5Version": "1.97.0",
       "libs": {
         "sap.ui.core": {},
-        "sap.fe.templates": {}
+        "sap.fe.templates": {},
+        "sap.f": {}
       }
     },
     "models": {
@@ -102,12 +111,21 @@
         {
           "pattern": ":?query:",
           "name": "OrderList",
-          "target": "OrderList"
+          "target": ["OrderList"]
         },
         {
           "pattern": "Order({key}):?query:",
           "name": "OrderObjectPage",
-          "target": "OrderObjectPage"
+          "target": ["OrderList", "OrderObjectPage"]
+        },
+        {
+          "pattern": "Order({key})/Deliveries({key2}):?query:",
+          "name": "DeliveriesObjectPage_Deliveries",
+          "target": [
+            "OrderList",
+            "OrderObjectPage",
+            "DeliveriesObjectPage_Deliveries"
+          ]
         }
       ],
       "targets": {
@@ -125,9 +143,19 @@
                     "route": "OrderObjectPage"
                   }
                 }
-              }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "enableExport": false
+                  }
+                }
+              },
+              "initialLoad": "Auto"
             }
-          }
+          },
+          "controlAggregation": "beginColumnPages",
+          "contextPattern": ""
         },
         "OrderObjectPage": {
           "type": "Component",
@@ -136,15 +164,74 @@
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "entitySet": "Order"
+              "entitySet": "Order",
+              "navigation": {
+                "Deliveries": {
+                  "detail": {
+                    "route": "DeliveriesObjectPage_Deliveries"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "LineItems/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "enableExport": false
+                  }
+                },
+                "Deliveries/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "enableExport": false
+                  }
+                },
+                "Invoices/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "enableExport": false
+                  }
+                }
+              }
             }
-          }
+          },
+          "controlAggregation": "midColumnPages",
+          "contextPattern": "/Order({key})"
+        },
+        "DeliveriesObjectPage_Deliveries": {
+          "type": "Component",
+          "id": "DeliveriesObjectPage_Deliveries",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "entitySet": "Deliveries",
+              "navigation": {},
+              "controlConfiguration": {
+                "DeliveryItems/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "enableExport": false
+                  }
+                }
+              }
+            }
+          },
+          "controlAggregation": "endColumnPages",
+          "contextPattern": "/Order({key})/Deliveries({key2})"
         }
+      },
+      "config": {
+        "flexibleColumnLayout": {
+          "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
+          "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+        },
+        "routerClass": "sap.f.routing.Router"
       }
     },
     "contentDensities": {
       "compact": true,
       "cozy": true
+    },
+    "rootView": {
+      "viewName": "sap.fe.templates.RootContainer.view.Fcl",
+      "type": "XML",
+      "async": true,
+      "id": "appRootView"
     }
   },
   "sap.platform.abap": {

@@ -44,6 +44,13 @@
                   "value": "|organization|",
                   "format": "plain"
                 }
+              },
+              "SoldToName": {
+                "required": "false",
+                "defaultValue": {
+                  "value": "|organizationName|",
+                  "format": "plain"
+                }
               }
             },
             "additionalParameters": "allowed"
@@ -103,6 +110,24 @@
           "operationMode": "Server",
           "autoExpandSelect": true,
           "earlyRequests": true
+        }
+      }
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.suite.ui.generic.template.ListReport.view.ListReport": {
+            "controllerName": "com.atlascopco.pt.portal.myopenorders.ext.controller.ListReportExt"
+          }
+        },
+        "sap.ui.viewExtensions": {
+          "sap.suite.ui.generic.template.ListReport.view.ListReport": {
+            "SmartFilterBarControlConfigurationExtension|Order": {
+              "className": "sap.ui.core.Fragment",
+              "fragmentName": "com.atlascopco.pt.portal.myopenorders.ext.fragment.ExtensionFilter",
+              "type": "XML"
+            }
+          }
         }
       }
     },

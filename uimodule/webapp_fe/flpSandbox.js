@@ -26,7 +26,7 @@ sap.ui.define([
 				componentData: {
 					config: {
 						enableSearch: false,
-						rootIntent: "myopenorders-display"
+						rootIntent: "Shell-home"
 					}
 				}
 			}

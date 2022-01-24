@@ -1,0 +1,246 @@
+<mvc:View controllerName="com.atlascopco.pt.portal.myopenorders.controller.OrderDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:forms="sap.ui.layout.form"
+    xmlns:uxap="sap.uxap"
+    height="100%">
+    <uxap:ObjectPageLayout upperCaseAnchorBar="false">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <Title text="{i18n>order}: {OrderNr}" />
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <Title text="{i18n>order}: {OrderNr}" />
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                    <Label text="{i18n>customerRef}: {CustomerReference}"/>
+                </uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{i18n>order}: {OrderNr}" />
+                </uxap:snappedTitleOnMobile>
+                <uxap:navigationActions>
+                    <OverflowToolbarButton icon="sap-icon://full-screen" press="handleFullScreen" tooltip="{i18n>enterfsm}" visible="{= !${fcl>/fullScreen} }"/>
+                    <OverflowToolbarButton icon="sap-icon://exit-full-screen" press="handleExitFullScreen" tooltip="{i18n>exitfsm}" visible="{= ${fcl>/fullScreen}}"/>
+                    <OverflowToolbarButton icon="sap-icon://decline" press="handleClose" tooltip="{i18n>closesc}"/>
+                </uxap:navigationActions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap" fitContainer="true">
+                <Avatar src="sap-icon://customer-order-entry" class="sapUiMediumMarginEnd sapUiSmallMarginBottom" displayShape="Square" displaySize="L" />
+                <VBox class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
+                    <HBox class="sapUiTinyMarginBottom" renderType="Bare">
+                        <Label text="{i18n>orderDate}:" class="sapUiTinyMarginEnd" />
+                        <Text text="{ path: 'OrderDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'long', source: { pattern: 'yyyy-MM-ddThh:mm:ss.XXX' } } }" />
+                    </HBox>
+                    <HBox class="sapUiTinyMarginBottom" renderType="Bare">
+                        <Label text="{i18n>soldTo}:" class="sapUiTinyMarginEnd" />
+                        <Text text=" {SoldToName}" />
+                    </HBox>
+                </VBox>
+                <VBox class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
+                    <Title text="{i18n>status}" class="sapUiTinyMarginBottom" />
+                    <ObjectStatus text="{Status}" state="{= ${Status} === 'Delivered' ? 'Success' : 'Warning' }" class="sapMObjectStatusLarge" />
+                </VBox>
+                <VBox class="sapUiLargeMarginEnd">
+                    <Title text="{i18n>totalAmount}" class="sapUiTinyMarginBottom" />
+                    <ObjectNumber number="{TotalAmount}" unit="{TotalCurrency}" emphasized="false" class="sapMObjectNumberLarge" />
+                </VBox>
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <Table autoPopinMode="true" popinLayout="GridSmall" sticky="HeaderToolbar,ColumnHeaders" items="{ path: 'LineItems', sorter: { path: 'Position' } }" class="sapFDynamicPageAlignContent" width="auto">
+                                <columns>
+                                    <Column width="3rem">
+                                        <Text text="{i18n>position}" />
+                                    </Column>
+                                    <Column width="12rem">
+                                        <Text text="{i18n>matNr}" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>matDesc}" />
+                                    </Column>
+                                    <Column width="5rem">
+                                        <Text text="{i18n>quantity}" />
+                                    </Column>
+                                    <Column width="5rem">
+                                        <Text text="{i18n>uom}" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>listPrice}" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>discountPerc}" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>discountAmount}" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>netPrice}" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>total}" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>currency}" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <Text text="{Position}" />
+                                            <Text text="{MaterialNr}" />
+                                            <Text text="{MaterialDescription}" />
+                                            <Text text="{Quantity}" />
+                                            <Text text="{UnitOfMeasure}" />
+                                            <Text text="{ListPrice}" />
+                                            <Text text="{DiscountPercentage}" />
+                                            <Text text="{DiscountAmount}" />
+                                            <Text text="{NetPrice}" />
+                                            <Text text="{TotalAmount}" />
+                                            <Text text="{Currency}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>deliveries}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <Table sticky="HeaderToolbar,ColumnHeaders" items="{ path: 'Deliveries', sorter: { path: 'TrackingNr' } }" class="sapFDynamicPageAlignContent" width="auto">
+                                <columns>
+                                    <Column>
+                                        <Text text="{i18n>trackingNr}" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>date}" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem type="Navigation" press="onDeliveryPress">
+                                        <cells>
+                                            <Link text="{TrackingNr}" target="_blank" href="{TrackingUrl}" />
+                                            <Text text="{ path: 'Date', type: 'sap.ui.model.type.Date', formatOptions: { style: 'long', source: { pattern: 'yyyy-MM-ddThh:mm:ss.XXX' } } }" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>deliveryInfo}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <forms:SimpleForm class="sapUxAPObjectPageSubSectionAlignContent" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4">
+                                <Label text="{i18n>name}" />
+                                <Text text="{DeliveryInformation_Name}" />
+                                <Label text="{i18n>street}" />
+                                <Text text="{DeliveryInformation_Street}" />
+                                <Label text="{i18n>nr}" />
+                                <Text text="{DeliveryInformation_Number}" />
+                                <Label text="{i18n>city}" />
+                                <Text text="{DeliveryInformation_City}" />
+                                <Label text="{i18n>zip}" />
+                                <Text text="{DeliveryInformation_Zip}" />
+                                <Label text="{i18n>countryCode}" />
+                                <Text text="{DeliveryInformation_CountryCode}" />
+                                <Label text="{i18n>country}" />
+                                <Text text="{DeliveryInformation_Country}" />
+                            </forms:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>salesInfo}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <forms:SimpleForm class="sapUxAPObjectPageSubSectionAlignContent" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4">
+                                <Label text="{i18n>name}" />
+                                <Text text="{SalesInformation_Name}" />
+                                <Label text="{i18n>street}" />
+                                <Text text="{SalesInformation_Street}" />
+                                <Label text="{i18n>nr}" />
+                                <Text text="{SalesInformation_Number}" />
+                                <Label text="{i18n>city}" />
+                                <Text text="{SalesInformation_City}" />
+                                <Label text="{i18n>zip}" />
+                                <Text text="{SalesInformation_Zip}" />
+                                <Label text="{i18n>countryCode}" />
+                                <Text text="{SalesInformation_CountryCode}" />
+                                <Label text="{i18n>country}" />
+                                <Text text="{SalesInformation_Country}" />
+                            </forms:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>paymentInfo}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <forms:SimpleForm class="sapUxAPObjectPageSubSectionAlignContent" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4">
+                                <Label text="{i18n>name}" />
+                                <Text text="{PaymentInformation_Name}" />
+                                <Label text="{i18n>street}" />
+                                <Text text="{PaymentInformation_Street}" />
+                                <Label text="{i18n>nr}" />
+                                <Text text="{PaymentInformation_Number}" />
+                                <Label text="{i18n>city}" />
+                                <Text text="{PaymentInformation_City}" />
+                                <Label text="{i18n>zip}" />
+                                <Text text="{PaymentInformation_Zip}" />
+                                <Label text="{i18n>countryCode}" />
+                                <Text text="{PaymentInformation_CountryCode}" />
+                                <Label text="{i18n>country}" />
+                                <Text text="{PaymentInformation_Country}" />
+                                <Label text="{i18n>paymentTerms}" />
+                                <Text text="{PaymentInformation_PaymentTerms}" />
+                            </forms:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>invoices}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <Table sticky="HeaderToolbar,ColumnHeaders" items="{ path: 'Invoices', sorter: { path: 'InvoiceNr' } }" class="sapFDynamicPageAlignContent" width="auto">
+                                <columns>
+                                    <Column>
+                                        <Text text="{i18n>invoiceNr}" />
+                                    </Column>
+                                    <Column visible="false">
+                                        <Text text="{i18n>invoiceNr}" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem type="Navigation" press="onInvoicePress">
+                                        <cells>
+                                            <Text text="{InvoiceNr}"/>
+                                            <Text text="{InvoiceUrl}" />
+                                            <!-- <Button text="{/Pdf(OrderNr='0014365790',InvoiceNr='0907720228.pdf')}" visible="false"/> -->
+                                            <!-- <Button text="{= '/Pdf(OrderNr=\'' + ${OrderNr} + '\',InvoiceNr=\'' + ${InvoiceNr} + '\'')' }" visible="false" /> -->
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

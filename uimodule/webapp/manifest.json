@@ -5,37 +5,24 @@
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
-      "version": "1.0.0"
+      "version": "0.0.1"
     },
-    "title": "{{appTitle}}",
-    "description": "{{appDescription}}",
+    "title": "{{title}}",
+    "description": "{{description}}",
     "dataSources": {
       "mainService": {
         "uri": "srv_api/order/",
         "type": "OData",
         "settings": {
-          "annotations": ["annotation"],
-          "odataVersion": "4.0",
-          "localUri": "localService/metadata.xml"
-        }
-      },
-      "annotation": {
-        "type": "ODataAnnotation",
-        "uri": "annotations/annotation.xml",
-        "settings": {
-          "localUri": "annotations/annotation.xml"
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
         }
       }
     },
-    "offline": false,
-    "resources": "resources.json",
-    "sourceTemplate": {
-      "id": "ui5template.fiorielements.v4.lrop",
-      "version": "1.0.0"
-    },
     "crossNavigation": {
       "inbounds": {
-        "intent": {
+        "com-atlascopco-pt-portal-myopenorders-inbound": {
           "signature": {
             "parameters": {
               "SoldTo": {
@@ -44,20 +31,13 @@
                   "value": "|organization|",
                   "format": "plain"
                 }
-              },
-              "SoldToName": {
-                "required": "false",
-                "defaultValue": {
-                  "value": "|organizationName|",
-                  "format": "plain"
-                }
               }
             },
             "additionalParameters": "allowed"
           },
           "semanticObject": "myopenorders",
           "action": "display",
-          "title": "{{flpTitle}}",
+          "title": "{{title}}",
           "subTitle": "{{flpSubtitle}}",
           "icon": "sap-icon://customer-order-entry"
         }
@@ -81,26 +61,30 @@
     }
   },
   "sap.ui5": {
-    "resources": {
-      "js": [],
-      "css": []
+    "flexEnabled": true,
+    "config": {
+      "fullWidth": true
     },
     "dependencies": {
       "minUI5Version": "1.97.0",
       "libs": {
         "sap.ui.core": {},
-        "sap.fe.templates": {},
         "sap.f": {}
       }
     },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
     "models": {
-      "@i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "uri": "i18n/i18n.properties"
-      },
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
-        "uri": "i18n/i18n.properties"
+        "settings": {
+          "bundleName": "com.atlascopco.pt.portal.myopenorders.i18n.i18n"
+        }
+      },
+      "fcl": {
+        "type": "sap.ui.model.json.JSONModel"
       },
       "": {
         "dataSource": "mainService",
@@ -109,170 +93,71 @@
           "synchronizationMode": "None",
           "operationMode": "Server",
           "autoExpandSelect": true,
-          "earlyRequests": true
+          "earlyRequests": true,
+          "groupId": "$auto"
         }
       }
     },
-    "extends": {
-      "extensions": {
-        "sap.ui.controllerExtensions": {
-          "sap.suite.ui.generic.template.ListReport.view.ListReport": {
-            "controllerName": "com.atlascopco.pt.portal.myopenorders.ext.controller.ListReportExt"
-          }
-        },
-        "sap.ui.viewExtensions": {
-          "sap.suite.ui.generic.template.ListReport.view.ListReport": {
-            "SmartFilterBarControlConfigurationExtension|Order": {
-              "className": "sap.ui.core.Fragment",
-              "fragmentName": "com.atlascopco.pt.portal.myopenorders.ext.fragment.ExtensionFilter",
-              "type": "XML"
-            }
-          }
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
         }
-      }
+      ]
     },
     "routing": {
+      "config": {
+        "routerClass": "sap.f.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "com.atlascopco.pt.portal.myopenorders.view",
+        "controlId": "fcl",
+        "transition": "slide"
+      },
       "routes": [
         {
-          "pattern": ":?query:",
           "name": "OrderList",
+          "pattern": "",
           "target": ["OrderList"]
         },
         {
-          "pattern": "Order({key}):?query:",
-          "name": "OrderObjectPage",
-          "target": ["OrderList", "OrderObjectPage"]
+          "name": "OrderDetail",
+          "pattern": "order/{orderNr}",
+          "target": ["OrderList", "OrderDetail"]
         },
         {
-          "pattern": "Order({key})/Deliveries({key2}):?query:",
-          "name": "DeliveriesObjectPage_Deliveries",
-          "target": [
-            "OrderList",
-            "OrderObjectPage",
-            "DeliveriesObjectPage_Deliveries"
-          ]
+          "name": "DeliveryDetail",
+          "pattern": "order/{orderNr}/deliveries/{deliveryId}",
+          "target": ["OrderList", "OrderDetail", "DeliveryDetail"]
         }
       ],
       "targets": {
         "OrderList": {
-          "type": "Component",
-          "id": "OrderList",
-          "name": "sap.fe.templates.ListReport",
-          "options": {
-            "settings": {
-              "entitySet": "Order",
-              "variantManagement": "Page",
-              "navigation": {
-                "Order": {
-                  "detail": {
-                    "route": "OrderObjectPage"
-                  }
-                }
-              },
-              "controlConfiguration": {
-                "@com.sap.vocabularies.UI.v1.LineItem": {
-                  "tableSettings": {
-                    "enableExport": false
-                  }
-                }
-              },
-              "initialLoad": "Auto"
-            }
-          },
-          "controlAggregation": "beginColumnPages",
-          "contextPattern": ""
+          "viewName": "OrderList",
+          "viewId": "OrderList",
+          "controlAggregation": "beginColumnPages"
         },
-        "OrderObjectPage": {
-          "type": "Component",
-          "id": "OrderObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
-          "options": {
-            "settings": {
-              "editableHeaderContent": false,
-              "entitySet": "Order",
-              "navigation": {
-                "Deliveries": {
-                  "detail": {
-                    "route": "DeliveriesObjectPage_Deliveries"
-                  }
-                }
-              },
-              "controlConfiguration": {
-                "LineItems/@com.sap.vocabularies.UI.v1.LineItem": {
-                  "tableSettings": {
-                    "enableExport": false
-                  }
-                },
-                "Deliveries/@com.sap.vocabularies.UI.v1.LineItem": {
-                  "tableSettings": {
-                    "enableExport": false
-                  }
-                },
-                "Invoices/@com.sap.vocabularies.UI.v1.LineItem": {
-                  "tableSettings": {
-                    "enableExport": false
-                  }
-                }
-              }
-            }
-          },
-          "controlAggregation": "midColumnPages",
-          "contextPattern": "/Order({key})"
+        "OrderDetail": {
+          "viewName": "OrderDetail",
+          "viewId": "OrderDetail",
+          "controlAggregation": "midColumnPages"
         },
-        "DeliveriesObjectPage_Deliveries": {
-          "type": "Component",
-          "id": "DeliveriesObjectPage_Deliveries",
-          "name": "sap.fe.templates.ObjectPage",
-          "options": {
-            "settings": {
-              "entitySet": "Deliveries",
-              "navigation": {},
-              "controlConfiguration": {
-                "DeliveryItems/@com.sap.vocabularies.UI.v1.LineItem": {
-                  "tableSettings": {
-                    "enableExport": false
-                  }
-                }
-              }
-            }
-          },
-          "controlAggregation": "endColumnPages",
-          "contextPattern": "/Order({key})/Deliveries({key2})"
+        "DeliveryDetail": {
+          "viewName": "DeliveryDetail",
+          "viewId": "DeliveryDetail",
+          "controlAggregation": "endColumnPages"
         }
-      },
-      "config": {
-        "flexibleColumnLayout": {
-          "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
-          "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
-        },
-        "routerClass": "sap.f.routing.Router"
       }
     },
-    "contentDensities": {
-      "compact": true,
-      "cozy": true
-    },
     "rootView": {
-      "viewName": "sap.fe.templates.RootContainer.view.Fcl",
+      "viewName": "com.atlascopco.pt.portal.myopenorders.view.App",
       "type": "XML",
       "async": true,
-      "id": "appRootView"
+      "id": "fcl"
     }
   },
-  "sap.platform.abap": {
-    "_version": "1.1.0",
-    "uri": ""
-  },
-  "sap.platform.hcp": {
-    "_version": "1.1.0",
-    "uri": ""
-  },
-  "sap.fiori": {
-    "_version": "1.1.0",
-    "registrationIds": [],
-    "archeType": "transactional"
-  },
   "sap.cloud": {
+    "public": true,
     "service": "myorders.service"
   }
 }

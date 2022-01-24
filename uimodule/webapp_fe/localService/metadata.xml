@@ -125,7 +125,7 @@
                 </NavigationProperty>
                 <Property Name="Order_OrderNr" Type="Edm.String" Nullable="false"/>
                 <Property Name="TrackingNr" Type="Edm.String" Nullable="false"/>
-                <Property Name="Date" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="Date" Type="Edm.Date"/>
                 <Property Name="TrackingUrl" Type="Edm.String"/>
                 <NavigationProperty Name="Items" Type="Collection(Order.DeliveryItems)" Partner="Delivery">
                     <OnDelete Action="Cascade"/>
@@ -142,6 +142,7 @@
                 <Property Name="Order_OrderNr" Type="Edm.String" Nullable="false"/>
                 <Property Name="InvoiceNr" Type="Edm.String" Nullable="false"/>
                 <Property Name="InvoiceUrl" Type="Edm.String"/>
+                <Property Name="InvoicePdf" Type="Edm.String"/>
             </EntityType>
             <EntityType Name="DeliveryItems">
                 <Key>
@@ -270,118 +271,6 @@
                             <PropertyValue Property="Value" Path="Status"/>
                             <PropertyValue Property="Label" String="{@i18n&gt;status}"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="SoldTo"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="SalesOrg"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="DeliveryInformation_Id"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="DeliveryInformation_Name"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="DeliveryInformation_Street"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="DeliveryInformation_Number"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="DeliveryInformation_Zip"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="DeliveryInformation_City"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="DeliveryInformation_Country"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="DeliveryInformation_CountryCode"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="SalesInformation_Id"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="SalesInformation_Name"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="SalesInformation_Street"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="SalesInformation_Number"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="SalesInformation_Zip"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="SalesInformation_City"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="SalesInformation_Country"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="SalesInformation_CountryCode"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="PaymentInformation_Id"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="PaymentInformation_Name"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="PaymentInformation_Street"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="PaymentInformation_Number"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="PaymentInformation_Zip"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="PaymentInformation_City"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="PaymentInformation_Country"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="PaymentInformation_CountryCode"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="PaymentInformation_PaymentTerms"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="PaymentInformation_Currency"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
                         </Record>
                     </Collection>
                 </Annotation>
@@ -562,77 +451,6 @@
                 </Annotation>
             </Annotations>
             <Annotations Target="Order.EntityContainer/Order">
-                <Annotation Term="Capabilities.SortRestrictions">
-                    <Record Type="Capabilities.SortRestrictionsType">
-                        <PropertyValue Property="NonSortableProperties">
-                            <Collection>
-                                <PropertyPath>SoldTo</PropertyPath>
-                                <PropertyPath>SalesOrg</PropertyPath>
-                                <PropertyPath>DeliveryInformation_Id</PropertyPath>
-                                <PropertyPath>DeliveryInformation_Name</PropertyPath>
-                                <PropertyPath>DeliveryInformation_Street</PropertyPath>
-                                <PropertyPath>DeliveryInformation_Number</PropertyPath>
-                                <PropertyPath>DeliveryInformation_Zip</PropertyPath>
-                                <PropertyPath>DeliveryInformation_City</PropertyPath>
-                                <PropertyPath>DeliveryInformation_Country</PropertyPath>
-                                <PropertyPath>DeliveryInformation_CountryCode</PropertyPath>
-                                <PropertyPath>SalesInformation_Id</PropertyPath>
-                                <PropertyPath>SalesInformation_Name</PropertyPath>
-                                <PropertyPath>SalesInformation_Street</PropertyPath>
-                                <PropertyPath>SalesInformation_Number</PropertyPath>
-                                <PropertyPath>SalesInformation_Zip</PropertyPath>
-                                <PropertyPath>SalesInformation_City</PropertyPath>
-                                <PropertyPath>SalesInformation_Country</PropertyPath>
-                                <PropertyPath>SalesInformation_CountryCode</PropertyPath>
-                                <PropertyPath>PaymentInformation_Id</PropertyPath>
-                                <PropertyPath>PaymentInformation_Name</PropertyPath>
-                                <PropertyPath>PaymentInformation_Street</PropertyPath>
-                                <PropertyPath>PaymentInformation_Number</PropertyPath>
-                                <PropertyPath>PaymentInformation_Zip</PropertyPath>
-                                <PropertyPath>PaymentInformation_City</PropertyPath>
-                                <PropertyPath>PaymentInformation_Country</PropertyPath>
-                                <PropertyPath>PaymentInformation_CountryCode</PropertyPath>
-                                <PropertyPath>PaymentInformation_PaymentTerms</PropertyPath>
-                                <PropertyPath>PaymentInformation_Currency</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Capabilities.FilterRestrictions">
-                    <Record Type="Capabilities.FilterRestrictionsType">
-                        <PropertyValue Property="NonFilterableProperties">
-                            <Collection>
-                                <PropertyPath>SalesOrg</PropertyPath>
-                                <PropertyPath>DeliveryInformation_Id</PropertyPath>
-                                <PropertyPath>DeliveryInformation_Name</PropertyPath>
-                                <PropertyPath>DeliveryInformation_Street</PropertyPath>
-                                <PropertyPath>DeliveryInformation_Number</PropertyPath>
-                                <PropertyPath>DeliveryInformation_Zip</PropertyPath>
-                                <PropertyPath>DeliveryInformation_City</PropertyPath>
-                                <PropertyPath>DeliveryInformation_Country</PropertyPath>
-                                <PropertyPath>DeliveryInformation_CountryCode</PropertyPath>
-                                <PropertyPath>SalesInformation_Id</PropertyPath>
-                                <PropertyPath>SalesInformation_Name</PropertyPath>
-                                <PropertyPath>SalesInformation_Street</PropertyPath>
-                                <PropertyPath>SalesInformation_Number</PropertyPath>
-                                <PropertyPath>SalesInformation_Zip</PropertyPath>
-                                <PropertyPath>SalesInformation_City</PropertyPath>
-                                <PropertyPath>SalesInformation_Country</PropertyPath>
-                                <PropertyPath>SalesInformation_CountryCode</PropertyPath>
-                                <PropertyPath>PaymentInformation_Id</PropertyPath>
-                                <PropertyPath>PaymentInformation_Name</PropertyPath>
-                                <PropertyPath>PaymentInformation_Street</PropertyPath>
-                                <PropertyPath>PaymentInformation_Number</PropertyPath>
-                                <PropertyPath>PaymentInformation_Zip</PropertyPath>
-                                <PropertyPath>PaymentInformation_City</PropertyPath>
-                                <PropertyPath>PaymentInformation_Country</PropertyPath>
-                                <PropertyPath>PaymentInformation_CountryCode</PropertyPath>
-                                <PropertyPath>PaymentInformation_PaymentTerms</PropertyPath>
-                                <PropertyPath>PaymentInformation_Currency</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
                 <Annotation Term="Capabilities.DeleteRestrictions">
                     <Record Type="Capabilities.DeleteRestrictionsType">
                         <PropertyValue Property="Deletable" Bool="false"/>
@@ -648,12 +466,6 @@
                         <PropertyValue Property="Updatable" Bool="false"/>
                     </Record>
                 </Annotation>
-            </Annotations>
-            <Annotations Target="Order.Order/OrderNr">
-                <Annotation Term="Common.Label" String="{@i18n&gt;orderNr}"/>
-            </Annotations>
-            <Annotations Target="Order.Order/OrderDate">
-                <Annotation Term="Common.Label" String="{@i18n&gt;orderDate}"/>
             </Annotations>
             <Annotations Target="Order.Order/Status">
                 <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
@@ -672,18 +484,15 @@
                     </Record>
                 </Annotation>
             </Annotations>
-            <Annotations Target="Order.Order/CustomerReference">
-                <Annotation Term="Common.Label" String="{@i18n&gt;customerRef}"/>
-            </Annotations>
             <Annotations Target="Order.Order/SoldTo">
                 <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
                 <Annotation Term="Common.Label" String="{@i18n&gt;soldTo}"/>
-                <Annotation Term="Common.ValueListMapping">
-                    <Record Type="Common.ValueListMappingType">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="Customer"/>
                         <PropertyValue Property="Parameters">
                             <Collection>
-                                <Record Type="Common.ValueListParameterInOut">
+                                <Record Type="Common.ValueListParameterIn">
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="SoldTo"/>
                                     <PropertyValue Property="ValueListProperty" String="SoldTo"/>
                                 </Record>
@@ -694,12 +503,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-            </Annotations>
-            <Annotations Target="Order.Order/TotalAmount">
-                <Annotation Term="Common.Label" String="{@i18n&gt;totalAmount}"/>
-            </Annotations>
-            <Annotations Target="Order.Order/TotalCurrency">
-                <Annotation Term="Common.Label" String="{@i18n&gt;currency}"/>
             </Annotations>
             <Annotations Target="Order.LineItems">
                 <Annotation Term="UI.LineItem">
@@ -748,61 +551,8 @@
                             <PropertyValue Property="Value" Path="Currency"/>
                             <PropertyValue Property="Label" String="{@i18n&gt;currency}"/>
                         </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="Order_OrderNr"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
                     </Collection>
                 </Annotation>
-            </Annotations>
-            <Annotations Target="Order.EntityContainer/LineItems">
-                <Annotation Term="Capabilities.SortRestrictions">
-                    <Record Type="Capabilities.SortRestrictionsType">
-                        <PropertyValue Property="NonSortableProperties">
-                            <Collection>
-                                <PropertyPath>Order_OrderNr</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Capabilities.SearchRestrictions">
-                    <Record Type="Capabilities.SearchRestrictionsType">
-                        <PropertyValue Property="Searchable" Bool="false"/>
-                    </Record>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="Order.LineItems/Position">
-                <Annotation Term="Common.Label" String="{@i18n&gt;position}"/>
-            </Annotations>
-            <Annotations Target="Order.LineItems/MaterialNr">
-                <Annotation Term="Common.Label" String="{@i18n&gt;matNr}"/>
-            </Annotations>
-            <Annotations Target="Order.LineItems/MaterialDescription">
-                <Annotation Term="Common.Label" String="{@i18n&gt;matDesc}"/>
-            </Annotations>
-            <Annotations Target="Order.LineItems/Quantity">
-                <Annotation Term="Common.Label" String="{@i18n&gt;quantity}"/>
-            </Annotations>
-            <Annotations Target="Order.LineItems/UnitOfMeasure">
-                <Annotation Term="Common.Label" String="{@i18n&gt;uom}"/>
-            </Annotations>
-            <Annotations Target="Order.LineItems/ListPrice">
-                <Annotation Term="Common.Label" String="{@i18n&gt;listPrice}"/>
-            </Annotations>
-            <Annotations Target="Order.LineItems/DiscountPercentage">
-                <Annotation Term="Common.Label" String="{@i18n&gt;discountPerc}"/>
-            </Annotations>
-            <Annotations Target="Order.LineItems/DiscountAmount">
-                <Annotation Term="Common.Label" String="{@i18n&gt;discountAmount}"/>
-            </Annotations>
-            <Annotations Target="Order.LineItems/NetPrice">
-                <Annotation Term="Common.Label" String="{@i18n&gt;netPrice}"/>
-            </Annotations>
-            <Annotations Target="Order.LineItems/TotalAmount">
-                <Annotation Term="Common.Label" String="{@i18n&gt;total}"/>
-            </Annotations>
-            <Annotations Target="Order.LineItems/Currency">
-                <Annotation Term="Common.Label" String="{@i18n&gt;currency}"/>
             </Annotations>
             <Annotations Target="Order.Deliveries">
                 <Annotation Term="UI.LineItem">
@@ -816,58 +566,8 @@
                             <PropertyValue Property="Value" Path="Date"/>
                             <PropertyValue Property="Label" String="{@i18n&gt;date}"/>
                         </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="TrackingUrl"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="Order_OrderNr"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
                     </Collection>
                 </Annotation>
-                <Annotation Term="UI.HeaderInfo">
-                    <Record Type="UI.HeaderInfoType">
-                        <PropertyValue Property="TypeName" String="{@i18n&gt;delivery}"/>
-                        <PropertyValue Property="TypeNamePlural" String=""/>
-                        <PropertyValue Property="Title">
-                            <Record Type="UI.DataField">
-                                <PropertyValue Property="Value" Path="TrackingNr"/>
-                            </Record>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="UI.Facets">
-                    <Collection>
-                        <Record Type="UI.ReferenceFacet">
-                            <PropertyValue Property="Label" String="{@i18n&gt;deliveryItems}"/>
-                            <PropertyValue Property="Target" AnnotationPath="Items/@UI.LineItem"/>
-                        </Record>
-                    </Collection>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="Order.EntityContainer/Deliveries">
-                <Annotation Term="Capabilities.SortRestrictions">
-                    <Record Type="Capabilities.SortRestrictionsType">
-                        <PropertyValue Property="NonSortableProperties">
-                            <Collection>
-                                <PropertyPath>Order_OrderNr</PropertyPath>
-                                <PropertyPath>TrackingUrl</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Capabilities.SearchRestrictions">
-                    <Record Type="Capabilities.SearchRestrictionsType">
-                        <PropertyValue Property="Searchable" Bool="false"/>
-                    </Record>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="Order.Deliveries/TrackingNr">
-                <Annotation Term="Common.Label" String="{@i18n&gt;trackingNr}"/>
-            </Annotations>
-            <Annotations Target="Order.Deliveries/Date">
-                <Annotation Term="Common.Label" String="{@i18n&gt;date}"/>
             </Annotations>
             <Annotations Target="Order.Invoices">
                 <Annotation Term="UI.LineItem">
@@ -876,91 +576,12 @@
                             <PropertyValue Property="Value" Path="InvoiceNr"/>
                             <PropertyValue Property="Label" String="{@i18n&gt;invoiceNr}"/>
                         </Record>
-                        <Record Type="UI.DataField">
+                        <Record Type="UI.DataFieldWithUrl">
+                            <PropertyValue Property="Url" Path="InvoicePdf"/>
                             <PropertyValue Property="Value" Path="InvoiceUrl"/>
-                            <PropertyValue Property="Label" String="{@i18n&gt;invoiceUrl}"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="Order_OrderNr"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
                         </Record>
                     </Collection>
                 </Annotation>
-            </Annotations>
-            <Annotations Target="Order.EntityContainer/Invoices">
-                <Annotation Term="Capabilities.SortRestrictions">
-                    <Record Type="Capabilities.SortRestrictionsType">
-                        <PropertyValue Property="NonSortableProperties">
-                            <Collection>
-                                <PropertyPath>Order_OrderNr</PropertyPath>
-                                <PropertyPath>InvoiceUrl</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Capabilities.SearchRestrictions">
-                    <Record Type="Capabilities.SearchRestrictionsType">
-                        <PropertyValue Property="Searchable" Bool="false"/>
-                    </Record>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="Order.Invoices/InvoiceNr">
-                <Annotation Term="Common.Label" String="{@i18n&gt;invoiceNr}"/>
-            </Annotations>
-            <Annotations Target="Order.DeliveryItems">
-                <Annotation Term="UI.LineItem">
-                    <Collection>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="MaterialNr"/>
-                            <PropertyValue Property="Label" String="{@i18n&gt;matNr}"/>
-                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="MaterialDescription"/>
-                            <PropertyValue Property="Label" String="{@i18n&gt;matDesc}"/>
-                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="Quantity"/>
-                            <PropertyValue Property="Label" String="{@i18n&gt;quantity}"/>
-                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="Delivery_TrackingNr"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="Delivery_Order_OrderNr"/>
-                            <Annotation Term="UI.Hidden" Bool="true"/>
-                        </Record>
-                    </Collection>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="Order.EntityContainer/DeliveryItems">
-                <Annotation Term="Capabilities.SortRestrictions">
-                    <Record Type="Capabilities.SortRestrictionsType">
-                        <PropertyValue Property="NonSortableProperties">
-                            <Collection>
-                                <PropertyPath>Delivery_TrackingNr</PropertyPath>
-                                <PropertyPath>Delivery_Order_OrderNr</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Capabilities.SearchRestrictions">
-                    <Record Type="Capabilities.SearchRestrictionsType">
-                        <PropertyValue Property="Searchable" Bool="false"/>
-                    </Record>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="Order.DeliveryItems/MaterialNr">
-                <Annotation Term="Common.Label" String="{@i18n&gt;matNr}"/>
-            </Annotations>
-            <Annotations Target="Order.DeliveryItems/MaterialDescription">
-                <Annotation Term="Common.Label" String="{@i18n&gt;matDesc}"/>
-            </Annotations>
-            <Annotations Target="Order.DeliveryItems/Quantity">
-                <Annotation Term="Common.Label" String="{@i18n&gt;quantity}"/>
             </Annotations>
         </Schema>
     </edmx:DataServices>

@@ -6,6 +6,7 @@ sap.ui.define([
     "use strict";
     return {
         getCustomAppStateDataExtension: function (oCustomData) {
+            console.log('test');
             //the content of the custom field will be stored in the app state, so that it can be restored later, for example after a back navigation.
             //The developer has to ensure that the content of the field is stored in the object that is passed to this method.
             if (oCustomData) {
@@ -16,6 +17,7 @@ sap.ui.define([
             }
         },
         restoreCustomAppStateDataExtension: function (oCustomData) {
+            console.log('test');
             //in order to restore the content of the custom field in the filter bar, for example after a back navigation,
             //an object with the content is handed over to this method. Now the developer has to ensure that the content of the custom filter is set to the control
             if (oCustomData) {
@@ -28,6 +30,7 @@ sap.ui.define([
             }
         },
         onBeforeRebindTableExtension: function(oEvent) {
+            console.log('test');
             var oBindingParams = oEvent.getParameter("bindingParams");
             oBindingParams.parameters = oBindingParams.parameters || {};
 

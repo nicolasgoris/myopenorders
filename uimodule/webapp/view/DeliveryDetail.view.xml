@@ -1,0 +1,75 @@
+<mvc:View controllerName="com.atlascopco.pt.portal.myopenorders.controller.DeliveryDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:forms="sap.ui.layout.form"
+    xmlns:uxap="sap.uxap"
+    height="100%">
+    <uxap:ObjectPageLayout upperCaseAnchorBar="false">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <Title text="{i18n>delivery}: {TrackingNr}" />
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <Title text="{i18n>delivery}: {TrackingNr}" />
+                </uxap:snappedHeading>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{i18n>delivery}: {TrackingNr}" />
+                </uxap:snappedTitleOnMobile>
+                <uxap:navigationActions>
+                    <OverflowToolbarButton icon="sap-icon://full-screen" press="handleFullScreen" tooltip="{i18n>enterfsm}" visible="{= !${fcl>/fullScreen} }"/>
+                    <OverflowToolbarButton icon="sap-icon://exit-full-screen" press="handleExitFullScreen" tooltip="{i18n>exitfsm}" visible="{= ${fcl>/fullScreen}}"/>
+                    <OverflowToolbarButton icon="sap-icon://decline" press="handleClose" tooltip="{i18n>closesc}"/>
+                </uxap:navigationActions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap" fitContainer="true">
+                <Avatar src="sap-icon://product" class="sapUiMediumMarginEnd sapUiSmallMarginBottom" displayShape="Square" displaySize="L" />
+                <VBox class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
+                    <HBox class="sapUiTinyMarginBottom" renderType="Bare">
+                        <Label text="{i18n>date}:" class="sapUiTinyMarginEnd" />
+                        <Text text="{ path: 'Date', type: 'sap.ui.model.type.Date', formatOptions: { style: 'long', source: { pattern: 'yyyy-MM-ddThh:mm:ss.XXX' } } }" />
+                    </HBox>
+                    <HBox class="sapUiTinyMarginBottom" renderType="Bare">
+                        <Label text="{i18n>trackingNr}:" class="sapUiTinyMarginEnd" />
+                        <Link text="{TrackingNr}" target="_blank" href="{TrackingUrl}" />
+                    </HBox>
+                </VBox>
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>deliveryItems}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <Table autoPopinMode="true" popinLayout="GridSmall" sticky="HeaderToolbar,ColumnHeaders" items="{ path: 'Items', sorter: { path: 'MaterialNr' } }" class="sapFDynamicPageAlignContent" width="auto">
+                                <columns>
+                                    <Column width="12rem">
+                                        <Text text="{i18n>matNr}" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>matDesc}" />
+                                    </Column>
+                                    <Column width="5rem">
+                                        <Text text="{i18n>quantity}" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <Text text="{MaterialNr}" />
+                                            <Text text="{MaterialDescription}" />
+                                            <Text text="{Quantity}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

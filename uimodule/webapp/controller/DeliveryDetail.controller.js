@@ -7,43 +7,41 @@ sap.ui.define([
         // Lifecycle functions
         // **************************************************************************
         onInit: function () {
-            this.getRouter().getRoute("DeliveryDetail").attachPatternMatched(this._onOrderDetailMatched, this);
-        },
-        onBeforeRendering: function () {
-
-        },
-        onDeliveryPress: function (oEvent) {
-            const oDelivery = oEvent.getSource().getBindingContext().getObject();
-            this.getRouter().navTo("DeliveryDetail", {
-                orderNr: oDelivery.Order_OrderNr,
-                deliveryId: oDelivery.ID
-            });
+            this.getRouter().getRoute("DeliveryDetail").attachPatternMatched(this._onDeliveryDetailMatched, this);
         },
         // **************************************************************************
         // event handlers
         // **************************************************************************
-        handleFullScreen: function() {
+        handleFullScreen: function () {
             this.getModel("fcl").setProperty("/layout", sap.f.LayoutType.EndColumnFullScreen);
             this.getModel("fcl").setProperty("/fullScreen", true);
         },
-        handleExitFullScreen: function() {
+        handleExitFullScreen: function () {
             this.getModel("fcl").setProperty("/layout", sap.f.LayoutType.ThreeColumnsMidExpanded);
             this.getModel("fcl").setProperty("/fullScreen", false);
         },
-        handleClose: function() {
+        handleClose: function () {
             this.getModel("fcl").setProperty("/layout", sap.f.LayoutType.TwoColumnsMidExpanded);
             this.getModel("fcl").setProperty("/fullScreen", false);
-            this.navBack();
+            this.navTo("OrderDetail", {
+                orderNr: this.getView().getBindingContext().getObject().Order_OrderNr
+            }, true);
         },
         // **************************************************************************
         // Helper functions
         // **************************************************************************
-        _onOrderDetailMatched: function (oEvent) {
+        _onDeliveryDetailMatched: function (oEvent) {
             this.getModel("fcl").setProperty("/layout", sap.f.LayoutType.ThreeColumnsMidExpanded);
             const sOrderNr = oEvent.getParameter("arguments").orderNr,
                 sDeliveryId = oEvent.getParameter("arguments").deliveryId;
+            this.setBusy(true);
             this.getView().bindElement({
-                path: `/Deliveries(Order_OrderNr='${sOrderNr}',ID=${sDeliveryId})`
+                path: `/Deliveries(Order_OrderNr='${sOrderNr}',ID=${sDeliveryId})`,
+                events: {
+                    dataReceived: function () {
+                        this.setBusy(false);
+                    }.bind(this)
+                }
             });
         },
     });

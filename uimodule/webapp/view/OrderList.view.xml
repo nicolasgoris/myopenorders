@@ -47,7 +47,7 @@
 			</f:DynamicPageHeader>
 		</f:header>
 		<f:content>
-			<Table id="ordersTable" sticky="HeaderToolbar,ColumnHeaders" items="{ path: '/Order', sorter: { path: 'OrderNr' }, parameters: { '$count': true } }" class="sapFDynamicPageAlignContent" width="auto">
+			<Table id="ordersTable" sticky="HeaderToolbar,ColumnHeaders" items="{ path: '/Order', sorter: { path: 'OrderDate', descending: true }, parameters: { '$count': true } }" class="sapFDynamicPageAlignContent" width="auto">
 				<columns>
 					<Column>
 						<Text text="{i18n>orderDate}" />

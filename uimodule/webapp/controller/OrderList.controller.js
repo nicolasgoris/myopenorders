@@ -32,7 +32,7 @@ sap.ui.define([
         // **************************************************************************
         onOrderPress: function (oEvent) {
             const oOrder = oEvent.getSource().getBindingContext().getObject();
-            this.getRouter().navTo("OrderDetail", {
+            this.navTo("OrderDetail", {
                 orderNr: oOrder.OrderNr
             });
         },
@@ -46,7 +46,11 @@ sap.ui.define([
                 } else if (fi.getName() === "OrderDate") {
                     const oStart = fi.getControl().getDateValue(), oEnd = fi.getControl().getSecondDateValue();
                     if (oStart && oEnd) {
-                        aFilters.push(new Filter({ filters: [new Filter({ path: fi.getName(), operator: FilterOperator.GE, value1: oStart.toJSON() }), new Filter({ path: fi.getName(), operator: FilterOperator.LE, value1: oEnd.toJSON() })], and: true }));
+                        aFilters.push(new Filter({ path: fi.getName(), operator: FilterOperator.BT, value1: oStart.toJSON(), value2: oEnd.toJSON() }));
+                        const duration = Math.round((oEnd - oStart) / (1000 * 60 * 60 * 24));
+                        if (duration > 92) {
+                            sap.m.MessageBox.warning(this.getText("longPeriod"));
+                        }
                     }
                 } else {
                     const aKeys = fi.getControl().getSelectedKeys();

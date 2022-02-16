@@ -1,4 +1,4 @@
-<mvc:View controllerName="com.atlascopco.pt.portal.myopenorders.controller.OrderList"
+<mvc:View controllerName="com.atlascopco.pt.portal.myopenorders.controller.List"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:f="sap.f"
 	xmlns:core="sap.ui.core"

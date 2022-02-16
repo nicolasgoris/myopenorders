@@ -2,12 +2,12 @@ sap.ui.define([
     "com/atlascopco/pt/portal/myopenorders/controller/BaseController"
 ], function (BaseController) {
     "use strict";
-    return BaseController.extend("com.atlascopco.pt.portal.myopenorders.controller.DeliveryDetail", {
+    return BaseController.extend("com.atlascopco.pt.portal.myopenorders.controller.DetailDetail", {
         // **************************************************************************
         // Lifecycle functions
         // **************************************************************************
         onInit: function () {
-            this.getRouter().getRoute("DeliveryDetail").attachPatternMatched(this._onDeliveryDetailMatched, this);
+            this.getRouter().getRoute("DetailDetail").attachPatternMatched(this._onDetailDetailMatched, this);
         },
         // **************************************************************************
         // event handlers
@@ -23,14 +23,14 @@ sap.ui.define([
         handleClose: function () {
             this.getModel("fcl").setProperty("/layout", sap.f.LayoutType.TwoColumnsMidExpanded);
             this.getModel("fcl").setProperty("/fullScreen", false);
-            this.navTo("OrderDetail", {
+            this.navTo("Detail", {
                 orderNr: this.getView().getBindingContext().getObject().Order_OrderNr
             }, true);
         },
         // **************************************************************************
         // Helper functions
         // **************************************************************************
-        _onDeliveryDetailMatched: function (oEvent) {
+        _onDetailDetailMatched: function (oEvent) {
             this.getModel("fcl").setProperty("/layout", sap.f.LayoutType.ThreeColumnsMidExpanded);
             const sOrderNr = oEvent.getParameter("arguments").orderNr,
                 sDeliveryId = oEvent.getParameter("arguments").deliveryId;

@@ -36,7 +36,7 @@ sap.ui.define([
 			if (sPreviousHash !== undefined) {
 				window.history.go(-1);
 			} else {
-				this.navTo("OrderList", null, true);
+				this.navTo("List", null, true);
 			}
 		},
         setBusy: function (bBusy) {

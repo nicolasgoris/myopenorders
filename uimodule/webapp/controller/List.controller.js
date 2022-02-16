@@ -4,7 +4,7 @@ sap.ui.define([
     "sap/ui/model/FilterOperator",
 ], function (BaseController, Filter, FilterOperator) {
     "use strict";
-    return BaseController.extend("com.atlascopco.pt.portal.myopenorders.controller.OrderList", {
+    return BaseController.extend("com.atlascopco.pt.portal.myopenorders.controller.List", {
         // **************************************************************************
         // Lifecycle functions
         // **************************************************************************
@@ -32,7 +32,7 @@ sap.ui.define([
         // **************************************************************************
         onOrderPress: function (oEvent) {
             const oOrder = oEvent.getSource().getBindingContext().getObject();
-            this.navTo("OrderDetail", {
+            this.navTo("Detail", {
                 orderNr: oOrder.OrderNr
             });
         },

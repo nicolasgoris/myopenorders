@@ -2,19 +2,19 @@ sap.ui.define([
     "com/atlascopco/pt/portal/myopenorders/controller/BaseController"
 ], function (BaseController) {
     "use strict";
-    return BaseController.extend("com.atlascopco.pt.portal.myopenorders.controller.OrderDetail", {
+    return BaseController.extend("com.atlascopco.pt.portal.myopenorders.controller.Detail", {
         // **************************************************************************
         // Lifecycle functions
         // **************************************************************************
         onInit: function () {
-            this.getRouter().getRoute("OrderDetail").attachPatternMatched(this._onOrderDetailMatched, this);
+            this.getRouter().getRoute("Detail").attachPatternMatched(this._onDetailMatched, this);
         },
         onBeforeRendering: function () {
 
         },
         onDeliveryPress: function (oEvent) {
             const oDelivery = oEvent.getSource().getBindingContext().getObject();
-            this.navTo("DeliveryDetail", {
+            this.navTo("DetailDetail", {
                 orderNr: oDelivery.Order_OrderNr,
                 deliveryId: oDelivery.ID
             });
@@ -33,7 +33,7 @@ sap.ui.define([
         handleClose: function () {
             this.getModel("fcl").setProperty("/layout", sap.f.LayoutType.OneColumn);
             this.getModel("fcl").setProperty("/fullScreen", false);
-            this.navTo("OrderList");
+            this.navTo("List");
         },
         onInvoicePress: function (oEvent) {
             const oInvoice = oEvent.getSource().getBindingContext().getObject();
@@ -43,7 +43,7 @@ sap.ui.define([
         // **************************************************************************
         // Helper functions
         // **************************************************************************
-        _onOrderDetailMatched: function (oEvent) {
+        _onDetailMatched: function (oEvent) {
             this.updateRoute(oEvent);
             this.getModel("fcl").setProperty("/layout", sap.f.LayoutType.TwoColumnsMidExpanded);
             const sOrderNr = oEvent.getParameter("arguments").orderNr;

@@ -116,35 +116,35 @@
       },
       "routes": [
         {
-          "name": "OrderList",
+          "name": "List",
           "pattern": "",
-          "target": ["OrderList"]
+          "target": ["List"]
         },
         {
-          "name": "OrderDetail",
+          "name": "Detail",
           "pattern": "order/{orderNr}",
-          "target": ["OrderList", "OrderDetail"]
+          "target": ["List", "Detail"]
         },
         {
-          "name": "DeliveryDetail",
+          "name": "DetailDetail",
           "pattern": "order/{orderNr}/deliveries/{deliveryId}",
-          "target": ["OrderList", "OrderDetail", "DeliveryDetail"]
+          "target": ["List", "Detail", "DetailDetail"]
         }
       ],
       "targets": {
-        "OrderList": {
-          "viewName": "OrderList",
-          "viewId": "OrderList",
+        "List": {
+          "viewName": "List",
+          "viewId": "List",
           "controlAggregation": "beginColumnPages"
         },
-        "OrderDetail": {
-          "viewName": "OrderDetail",
-          "viewId": "OrderDetail",
+        "Detail": {
+          "viewName": "Detail",
+          "viewId": "Detail",
           "controlAggregation": "midColumnPages"
         },
-        "DeliveryDetail": {
-          "viewName": "DeliveryDetail",
-          "viewId": "DeliveryDetail",
+        "DetailDetail": {
+          "viewName": "DetailDetail",
+          "viewId": "DetailDetail",
           "controlAggregation": "endColumnPages"
         }
       }

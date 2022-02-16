@@ -16,8 +16,10 @@
         "build:uimodule": "ui5 build --config=uimodule/ui5.yaml --clean-dest --dest uimodule/dist --include-task=generateManifestBundle",
         "cftarget:dev": "cf target -o AtasCopco_PT_MyAtlasCopco_DEV -s apps",
         "cftarget:stg": "cf target -o AtasCopco_PT_MyAtlasCopco_STG -s apps",
+        "cftarget:prd": "cf target -o AtasCopco_PT_MyAtlasCopco_PRD -s apps",
         "deploy:dev": "run-s cftarget:dev build:mta deploy:cf",
         "deploy:stg": "run-s cftarget:stg build:mta deploy:cf",
+        "deploy:prd": "run-s cftarget:prd build:mta deploy:cf",
         "undeploy": "cf undeploy myorders --delete-services --delete-service-keys"
     },
     "devDependencies": {

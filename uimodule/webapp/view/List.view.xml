@@ -38,7 +38,7 @@
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem groupName="filters" name="OrderDate" label="{i18n>date}" visibleInFilterBar="true">
                                 <fb:control>
-									<DateRangeSelection maxDate="{fcl>/today}" />
+									<DateRangeSelection id="orderdate" maxDate="{fcl>/today}" />
                                 </fb:control>
                             </fb:FilterGroupItem>
                         </fb:filterGroupItems>

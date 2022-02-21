@@ -18,9 +18,16 @@ sap.ui.define([
                     if (this.getRouter().getHashChanger().parent._oNavigationState) {
                         if (this.getRouter().getHashChanger().parent._oNavigationState.newHash) {
                             if (oRegEx.exec(this.getRouter().getHashChanger().parent._oNavigationState.newHash)) {
-                                const sSoldTo = oRegEx.exec(this.getRouter().getHashChanger().parent._oNavigationState.newHash)[1];
-                                this.getView().byId("ordersTable").getBinding("items").filter([new Filter({ path: "SoldTo", operator: FilterOperator.EQ, value1: sSoldTo })]);
+                                const sSoldTo = oRegEx.exec(this.getRouter().getHashChanger().parent._oNavigationState.newHash)[1],
+                                    oEnd = new Date(),
+                                    oStart = new Date(new Date().setMonth(new Date().getMonth() - 3));
+                                this.getView().byId("orderdate").setDateValue(oStart);
+                                this.getView().byId("orderdate").setSecondDateValue(oEnd);
                                 this.getView().byId("soldTo").addSelectedKeys([sSoldTo]);
+                                this.getView().byId("ordersTable").getBinding("items").filter([
+                                    new Filter({ path: "SoldTo", operator: FilterOperator.EQ, value1: sSoldTo }),
+                                    new Filter({ path: "OrderDate", operator: FilterOperator.BT, value1: oStart.toJSON(), value2: oEnd.toJSON() })]
+                                );
                             }
                         }
                     }
@@ -48,7 +55,7 @@ sap.ui.define([
                     if (oStart && oEnd) {
                         aFilters.push(new Filter({ path: fi.getName(), operator: FilterOperator.BT, value1: oStart.toJSON(), value2: oEnd.toJSON() }));
                         const duration = Math.round((oEnd - oStart) / (1000 * 60 * 60 * 24));
-                        if (duration > 92) {
+                        if (duration > 93) {
                             sap.m.MessageBox.warning(this.getText("longPeriod"));
                         }
                     }
@@ -61,6 +68,9 @@ sap.ui.define([
                     }
                 }
             });
+            this.getModel("fcl").setProperty("/layout", sap.f.LayoutType.OneColumn);
+            this.getModel("fcl").setProperty("/fullScreen", false);
+            this.navTo("List");
             this.getView().byId("ordersTable").getBinding("items").filter(aFilters);
         },
         onClearFilters: function (oEvent) {

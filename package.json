@@ -20,6 +20,7 @@
         "deploy:dev": "run-s cftarget:dev build:mta deploy:cf",
         "deploy:stg": "run-s cftarget:stg build:mta deploy:cf",
         "deploy:prd": "run-s cftarget:prd build:mta deploy:cf",
+        "deploy:all": "run-s build:mta cftarget:dev deploy:cf cftarget:stg deploy:cf cftarget:prd deploy:cf",
         "undeploy": "cf undeploy myorders --delete-services --delete-service-keys"
     },
     "devDependencies": {
